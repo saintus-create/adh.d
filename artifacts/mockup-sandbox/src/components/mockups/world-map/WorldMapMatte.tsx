@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import DottedMap from "dotted-map";
 
 const MAP_W = 204;
 const MAP_H = 100;
@@ -31,18 +32,15 @@ export function WorldMapMatte() {
   const [svgMap, setSvgMap] = useState("");
 
   useEffect(() => {
-    (async () => {
-      const DottedMap = (await import("dotted-map")).default;
-      const map = new DottedMap({ height: 100, grid: "diagonal" });
-      setSvgMap(
-        map.getSVG({
-          radius: 0.20,
-          color: "rgba(210,200,185,0.04)",
-          shape: "circle",
-          backgroundColor: "transparent",
-        })
-      );
-    })();
+    const map = new DottedMap({ height: 100, grid: "diagonal" });
+    setSvgMap(
+      map.getSVG({
+        radius: 0.20,
+        color: "rgba(210,200,185,0.04)",
+        shape: "circle",
+        backgroundColor: "transparent",
+      })
+    );
   }, []);
 
   const pts = DOTS.map((d) => project(d.lat, d.lng));
